@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+  golang:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: golang
+    container_name: golang-app
+    restart: on-failure
+    working_dir: /var/www/
+    stdin_open: true
+    volumes:
+      - ./:/var/www
+    ports:
+    - "8080:8080"
+    networks:
+      - golang-net
+
+
+networks:
+  golang-net:
+    driver: bridge

@@ -1,0 +1,80 @@
+2021-06-29 04:06:57,787 INFO Set uid to user 0 succeeded
+2021-06-29 04:06:57,839 INFO supervisord started with pid 45
+2021-06-29 04:06:58,842 INFO spawned: 'app' with pid 47
+2021-06-29 04:06:59,850 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-06-29 04:07:08,248 INFO exited: app (exit status 1; not expected)
+2021-06-29 04:07:09,251 INFO spawned: 'app' with pid 342
+2021-06-29 04:07:10,253 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-06-29 04:07:16,802 INFO exited: app (exit status 1; not expected)
+2021-06-29 04:07:17,806 INFO spawned: 'app' with pid 476
+2021-06-29 04:07:18,808 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-06-29 04:07:37,001 WARN received SIGINT indicating exit request
+2021-06-29 04:07:37,002 INFO waiting for app to die
+2021-06-29 04:07:38,005 INFO stopped: app (terminated by SIGTERM)
+2021-06-29 04:08:08,860 INFO Set uid to user 0 succeeded
+2021-06-29 04:08:08,867 INFO supervisord started with pid 620
+2021-06-29 04:08:09,870 INFO spawned: 'app' with pid 622
+2021-06-29 04:08:10,872 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-06-29 04:09:36,641 INFO exited: app (exit status 1; not expected)
+2021-06-29 04:09:37,644 INFO spawned: 'app' with pid 759
+2021-06-29 04:09:38,646 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-06-29 04:11:34,325 INFO exited: app (exit status 1; not expected)
+2021-06-29 04:11:35,327 INFO spawned: 'app' with pid 893
+2021-06-29 04:11:36,329 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-06-29 04:12:16,116 WARN received SIGINT indicating exit request
+2021-06-29 04:12:16,117 INFO waiting for app to die
+2021-06-29 04:12:17,119 INFO stopped: app (terminated by SIGTERM)
+2021-06-29 04:12:19,788 INFO Set uid to user 0 succeeded
+2021-06-29 04:12:19,794 INFO supervisord started with pid 1027
+2021-06-29 04:12:20,797 INFO spawned: 'app' with pid 1029
+2021-06-29 04:12:21,799 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-06-29 04:30:24,006 INFO exited: app (exit status 1; not expected)
+2021-06-29 04:30:25,009 INFO spawned: 'app' with pid 1169
+2021-06-29 04:30:26,011 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-06-29 06:00:53,429 INFO exited: app (exit status 1; not expected)
+2021-06-29 06:00:54,432 INFO spawned: 'app' with pid 1312
+2021-06-29 06:00:55,434 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-06-29 07:07:44,031 INFO exited: app (exit status 1; not expected)
+2021-06-29 07:07:45,034 INFO spawned: 'app' with pid 1449
+2021-06-29 07:07:46,036 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-06-29 07:25:17,199 INFO exited: app (exit status 1; not expected)
+2021-06-29 07:25:18,202 INFO spawned: 'app' with pid 1589
+2021-06-29 07:25:19,204 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-06-29 08:15:51,775 INFO exited: app (exit status 1; not expected)
+2021-06-29 08:15:52,778 INFO spawned: 'app' with pid 1724
+2021-06-29 08:15:53,780 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-07-14 07:44:15,561 INFO Set uid to user 0 succeeded
+2021-07-14 07:44:15,569 INFO supervisord started with pid 252
+2021-07-14 07:44:16,572 INFO spawned: 'app' with pid 254
+2021-07-14 07:44:17,574 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-07-14 07:44:18,576 WARN received SIGINT indicating exit request
+2021-07-14 07:44:18,576 INFO waiting for app to die
+2021-07-14 07:44:18,578 INFO stopped: app (terminated by SIGTERM)
+2021-07-14 07:44:41,151 INFO Set uid to user 0 succeeded
+2021-07-14 07:44:41,159 INFO supervisord started with pid 390
+2021-07-14 07:44:42,205 INFO spawned: 'app' with pid 392
+2021-07-14 07:44:43,207 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-07-14 07:44:43,208 WARN received SIGINT indicating exit request
+2021-07-14 07:44:43,210 INFO waiting for app to die
+2021-07-14 07:44:43,212 INFO stopped: app (terminated by SIGTERM)
+2021-07-14 07:45:19,120 INFO Set uid to user 0 succeeded
+2021-07-14 07:45:19,128 INFO supervisord started with pid 504
+2021-07-14 07:45:20,131 INFO spawned: 'app' with pid 506
+2021-07-14 07:45:21,133 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-07-14 07:45:21,134 WARN received SIGINT indicating exit request
+2021-07-14 07:45:21,135 INFO waiting for app to die
+2021-07-14 07:45:21,137 INFO stopped: app (terminated by SIGTERM)
+2021-07-16 07:54:02,284 INFO Set uid to user 0 succeeded
+2021-07-16 07:54:02,313 INFO supervisord started with pid 2019
+2021-07-16 07:54:03,315 INFO spawned: 'app' with pid 2021
+2021-07-16 07:54:04,317 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-07-16 07:54:06,586 INFO exited: app (exit status 0; expected)
+2021-07-16 07:54:07,589 INFO spawned: 'app' with pid 2158
+2021-07-16 07:54:08,591 INFO success: app entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-07-16 07:54:10,840 INFO exited: app (exit status 0; expected)
+2021-07-16 07:54:11,843 INFO spawned: 'app' with pid 2303
+2021-07-16 07:54:11,844 WARN received SIGINT indicating exit request
+2021-07-16 07:54:11,845 INFO waiting for app to die
+2021-07-16 07:54:12,846 WARN received SIGINT indicating exit request
+2021-07-16 07:54:14,850 INFO waiting for app to die
+2021-07-16 07:54:15,100 INFO stopped: app (exit status 0)

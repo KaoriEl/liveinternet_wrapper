@@ -1,0 +1,100 @@
+version: "3.7"
+services:
+    rabbitmq:
+        image: rabbitmq:3-management-alpine
+        container_name: 'rabbitmq'
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        volumes:
+            - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+            - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+        networks:
+            - laravel
+    app:
+        build:
+            args:
+                user: laravel_user
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        image: laravel
+        container_name: laravel
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        #      - ./php/ini:/usr/local/etc/php-fpm.conf
+        networks:
+            - laravel
+
+    db:
+        image: mysql:5.7
+        container_name: mysql-db
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: default
+            MYSQL_ROOT_PASSWORD: default
+            MYSQL_PASSWORD: default
+            MYSQL_USER: default
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        volumes:
+            - ./mysql:/var/lib/mysql
+        networks:
+            - laravel
+        ports:
+            - "3306:3306"
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: pma_liveinternet
+        links:
+            - db
+        environment:
+            PMA_HOST: db
+            PMA_PORT: 3306
+            PMA_ARBITRARY: 1
+        restart: always
+        ports:
+            - 8081:80
+        networks:
+            - laravel
+
+    nginx:
+        image: nginx:alpine
+        container_name: nginx
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/var/www
+            - ./docker-compose/nginx:/etc/nginx/conf.d
+            - ./docker-compose/nginx:/etc/nginx/nginx.htpasswd
+        networks:
+            - laravel
+
+    golang-geizer:
+        build:
+            context: .
+            dockerfile: ./golang/Dockerfile
+        image: golang
+        container_name: geizer
+        hostname: geizer
+        expose:
+            - "3000"
+        volumes:
+            - "./:/var/www"
+        links:
+            - rabbitmq
+        working_dir: /var/www
+        stdin_open: true
+        tty: true
+        ports:
+            - 3000:3000
+        networks:
+            - laravel
+
+networks:
+    laravel:
+        driver: bridge

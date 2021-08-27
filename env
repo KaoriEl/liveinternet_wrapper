@@ -1,0 +1,4 @@
+REDIS_PASS=
+MYSQL_USER=root
+MYSQL_DB=live_internet
+MYSQL_PASS=
