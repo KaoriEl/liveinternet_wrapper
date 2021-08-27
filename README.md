@@ -8,7 +8,7 @@ docker-compose build
 docker-compose up -d
 docker exec -it laravel composer i
 ```
-3. Заподключится в контейнеру laravel и выполнить команды ниже:
+3. Подключиться в контейнеру laravel и выполнить команды ниже:
 ```
 docker exec -it laravel sh //подключение
 cd ..
