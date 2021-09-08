@@ -86,12 +86,11 @@ func boost(ProxyList []Proxy, needWrapping string, SiteUrl string, TaskList Task
             }()
         }
         wg.Wait()
-        fmt.Println("Мы не жалкие букашки, суперниндзя черерпашки!")
-        ResponseStatusStop(TaskList)
+        fmt.Println("Мы не жалкие букашки, суперниндзя черепашки!")
     } else {
-        fmt.Println(needWrapping, " не является целым числом.")
+        fmt.Println(needWrapping, "не является целым числом.")
     }
-
+    ResponseStatusStop(TaskList)
 }
 
 func userAgent(TaskList Task) []string{

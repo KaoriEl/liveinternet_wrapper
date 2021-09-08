@@ -21,8 +21,8 @@ class SiteController extends Controller
     public function index()
     {
         $sites = DB::table("sites")->orderBy("status", "ASC")->paginate(20);
-
-        return view('dashboard.dashboard', compact('sites',));
+        $proxy_count = DB::table("proxies")->where("status","ACTIVE")->count();
+        return view('dashboard.dashboard', compact('sites','proxy_count'));
     }
 
     /**

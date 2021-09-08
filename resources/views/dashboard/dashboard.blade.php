@@ -84,8 +84,9 @@
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header" style="display: block;">
                                                 <h5 class="modal-title" id="exampleModalLabel">Отправить в накрутку</h5>
+                                                <span class="font-weight-bold">Кол-во доступных прокси: <span class="text-success">{{$proxy_count}}</span></span>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -97,12 +98,14 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="">Кол-во</span>
                                                         </div>
-                                                        <input type="text" class="form-control" id="count_wrapp" name="count_wrapp">
+                                                        <input name="count_wrapp" type="text" class="form-control" id="count_wrapp" placeholder="Кол-во для накрутки" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
                                                         <input type="text" hidden class="form-control" id="SiteUrl" name="SiteUrl" value="">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" id="inWrapp" class="btn btn-primary">Накрутить</button>
+
+                                                    <p class="font-weight-light" style="font-size: 14px;">Колличество для накрутки превышающее колличество доступных прокси ставить не рекомендуется</p>
+                                                    <button type="submit" id="inWrapp" class="btn btn-outline-secondary">Накрутить</button>
                                                 </div>
                                             </form>
                                         </div>
