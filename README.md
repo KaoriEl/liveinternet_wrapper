@@ -25,6 +25,6 @@ chown -R mysql:mysql mysql
 docker exec -it laravel php key:generate 
 docker exec -it laravel php artisan migrate 
 docker exec -it laravel php artisan db:seed
-
+docker exec -it laravel php artisan create:queue
 ```
 6. Все должно работать.

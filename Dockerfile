@@ -46,7 +46,7 @@ WORKDIR /var/www
 ENV PHP_MEMORY_LIMIT=-1
 RUN chown -R www-data:www-data /var/www/
 
-
+RUN echo "*/5 * * * * root php artisan proxy:check >> /var/log/cron.log 2>&1" >> /etc/crontab
 
 CMD ["/usr/bin/supervisord", "-n"]
 #CMD ["/usr/sbin/cron", "-f"]
