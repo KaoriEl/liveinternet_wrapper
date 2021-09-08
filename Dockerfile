@@ -49,5 +49,5 @@ RUN chown -R www-data:www-data /var/www/
 RUN echo "*/5 * * * * root php artisan proxy:check >> /var/log/cron.log 2>&1" >> /etc/crontab
 
 CMD ["/usr/bin/supervisord", "-n"]
-#CMD ["/usr/sbin/cron", "-f"]
+CMD ["/usr/sbin/cron", "-f"]
 # USER $user

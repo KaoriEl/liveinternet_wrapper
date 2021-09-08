@@ -9,10 +9,10 @@ services:
         environment:
             AMQP_URL: 'amqp://rabbitmq?connection_attempts=5&retry_delay=5'
             RABBITMQ_DEFAULT_USER: "admin"
-            RABBITMQ_DEFAULT_PASS: "r3wn5aTa2UJ89J8L"
+            RABBITMQ_DEFAULT_PASS: "rQwnZa"
         volumes:
             - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-            - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+            - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq/
         networks:
             - laravel
     app:
