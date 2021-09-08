@@ -2,8 +2,10 @@ package operations
 
 import (
     "encoding/json"
+    "github.com/joho/godotenv"
     "github.com/streadway/amqp"
     "log"
+    "os"
 )
 
 type Task struct {
@@ -11,6 +13,13 @@ type Task struct {
     CountWrapping   string `json:"count_wrapp"`
     Proxy           string `json:"proxyList"`
 
+}
+
+func init() {
+    err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
 }
 
 func failOnError(err error, msg string) {
@@ -21,7 +30,7 @@ func failOnError(err error, msg string) {
 
 func RabbitGetMsg() string{
     go server()
-    conn, err := amqp.Dial("amqp://guest:guest@rabbitmq:5672/")
+    conn, err := amqp.Dial("amqp://" + os.Getenv("USERNAME_RABBIT_MQ") + ":" + os.Getenv("PASSWORD_RABBIT_MQ") + "@rabbitmq:5672/")
     failOnError(err, "Failed to connect to RabbitMQ")
     defer conn.Close()
 
