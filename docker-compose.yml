@@ -12,7 +12,6 @@ services:
             RABBITMQ_DEFAULT_PASS: "rQwnZa"
         volumes:
             - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-            - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq/
         networks:
             - laravel
     app:
