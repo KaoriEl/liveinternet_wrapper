@@ -42,3 +42,9 @@ docker stop $(docker ps -a -q)
 ```
 docker rm $(docker ps -a -q)
 ```
+
+* Пересобрать только 1 контейнер
+
+```
+docker-compose up -d --no-deps --build %имя контейнера%
+```
