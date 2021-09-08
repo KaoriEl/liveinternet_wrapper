@@ -40,9 +40,9 @@ services:
         restart: unless-stopped
         environment:
             MYSQL_DATABASE: default
-            MYSQL_ROOT_PASSWORD: admin
+            MYSQL_ROOT_PASSWORD: agxQbNd9ghBdLSpA
             MYSQL_PASSWORD: agxQbNd9ghBdLSpA
-            MYSQL_USER: admin
+            MYSQL_USER: default
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
         volumes:
