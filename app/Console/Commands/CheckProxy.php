@@ -39,7 +39,7 @@ class CheckProxy extends Command
      */
     public function handle()
     {
-        $proxies = DB::table("proxies")->where("status", "Not verified")->orWhere("status", "INACTIVE")->get();
+        $proxies = DB::table("proxies")->get();
 
         echo $proxies;
 
