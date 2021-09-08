@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth'])->group(function () {
 Route::get('/',  [SiteController::class, 'index'])->name("dashboard");
 Route::get('/proxy', [ProxyController::class, 'index']) ->name("add_proxy");
-Route::get('/add_site', [AddSiteController::class, 'index'])->name("add_site");
 
 //Добавить и удалить сайты
 Route::post('/save_site', [AddSiteController::class, 'save'])->name("save_site");

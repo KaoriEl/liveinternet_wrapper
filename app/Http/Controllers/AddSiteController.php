@@ -18,7 +18,7 @@ class AddSiteController extends Controller
             $site->site_url= $request->input('url');
             $site->save();
         }
-        return view('dashboard.add_site');
+        return redirect()->route('dashboard');
     }
 
     public function destroy($id)

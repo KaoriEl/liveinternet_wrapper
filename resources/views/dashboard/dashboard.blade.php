@@ -7,6 +7,42 @@
                 {{ session()->get('error') }}
             </div>
         @endif
+
+            <div class="buttons-form mb-3">
+                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addSite">Добавить Сайт</button>
+                {{--            <button type="button" class="btn btn-primary">Загрузить аккаунты файлом</button>--}}
+            </div>
+
+            <!-- Button trigger modal -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="addSite" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Добавление сайта</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="post" action="{{ route('save_site') }}">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Url:</span>
+                                    </div>
+                                    <input name="url" type="text" class="form-control" placeholder="Вставьте ссылку на сайт" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-outline-secondary" type="button" id="parse_comment">Добавить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         <div class="table-responsive">
             <table class="table table-bordered dataTable no-footer">
                 <thead>
@@ -42,7 +78,7 @@
                             <div class="actions">
 
                                 <div class="buttons-form mb-3">
-                                    <button type="button" id="{{ $site->id  }}" class="btn btn-success wrapper" data-toggle="modal" data-target="#exampleModal" style="width: 100%">В накрутку</button>
+                                    <button type="button" id="{{ $site->id  }}" class="btn btn-outline-success wrapper" data-toggle="modal" data-target="#exampleModal" style="width: 100%">В накрутку</button>
                                 </div>
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -75,7 +111,7 @@
                                 <form action="{{ route('destroy_site', $site->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <button  class="btn btn-danger" style="width: 100%">Удалить</button>
+                                    <button  class="btn btn-outline-danger" style="width: 100%">Удалить</button>
                                 </form>
                             </div>
 
@@ -84,6 +120,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{$sites->links('pagination::bootstrap-4')}}
         </div>
     </div>
 @endsection

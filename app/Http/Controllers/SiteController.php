@@ -20,7 +20,7 @@ class SiteController extends Controller
 {
     public function index()
     {
-        $sites = Sites::all();
+        $sites = DB::table("sites")->orderBy("status", "ASC")->paginate(20);
 
         return view('dashboard.dashboard', compact('sites',));
     }
@@ -34,7 +34,7 @@ class SiteController extends Controller
         $channel = $connection->channel();
 
         if ($request->input('count_wrapp') !== null){
-            $proxyList = DB::table("proxies")->inRandomOrder()->take($request->input('count_wrapp'))->get();
+            $proxyList = DB::table("proxies")->inRandomOrder()->where("status", "ACTIVE")->take($request->input('count_wrapp'))->get();
         }else{
             dd("Нет кол-ва для накрутки");
         }

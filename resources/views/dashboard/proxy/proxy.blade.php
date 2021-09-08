@@ -8,40 +8,40 @@
             </div>
         @endif
         <div class="buttons-form mb-3">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Добавить прокси</button>
+            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">Добавить прокси</button>
             {{--            <button type="button" class="btn btn-primary">Загрузить аккаунты файлом</button>--}}
         </div>
 
         <!-- Button trigger modal -->
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Добавление прокси сервера</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form method="post" action="{{ route('save_proxy') }}">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">Прокси</span>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Добавление прокси сервера</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="post" action="{{ route('save_proxy') }}">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Proxy:</span>
+                                    </div>
+                                    <input name="proxy" type="text" class="form-control" placeholder="Прокси в формате: ip:port" aria-label="Recipient's username" aria-describedby="basic-addon2" value="">
                                 </div>
-                                <input type="text" class="form-control" name="proxy">
-{{--                                <input type="hidden" value="1" class="form-control" name="status">--}}
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Добавить</button>
-                        </div>
-                    </form>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-outline-secondary" type="button" id="parse_comment">Добавить</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+
+
 
         <div class="table-responsive">
             <table class="table table-bordered dataTable no-footer">
@@ -78,7 +78,7 @@
                             <form action="{{ route('destroy_proxy', $proxy->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button  class="btn btn-danger" style="width: 100%">Удалить</button>
+                                <button  class="btn btn-outline-danger" style="width: 100%">Удалить</button>
                             </form>
                         </td>
                     </tr>
@@ -86,6 +86,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{$proxies->links('pagination::bootstrap-4')}}
         </div>
     </div>
 @endsection

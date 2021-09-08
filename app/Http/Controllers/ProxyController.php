@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Proxy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProxyController extends Controller
 {
     public function index()
     {
-        $proxies = Proxy::all();
-        return view('dashboard.proxy.proxy', compact('proxies',));
+        $proxies = DB::table("proxies")->orderBy("status", "ASC")->paginate(20);
+        return view('dashboard.proxy.proxy', compact('proxies'));
     }
 
     public function save(Request $request)
     {
         if ($request->has('proxy')) {
-
             $raw_proxy = $request->input('proxy');
             $proxy = $this->regex($raw_proxy);
             $proxy_adress = $proxy[0][1];
