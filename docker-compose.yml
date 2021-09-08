@@ -6,6 +6,10 @@ services:
         ports:
             - "5672:5672"
             - "15672:15672"
+        environment:
+            AMQP_URL: 'amqp://rabbitmq?connection_attempts=5&retry_delay=5'
+            RABBITMQ_DEFAULT_USER: "admin"
+            RABBITMQ_DEFAULT_PASS: "r3wn5aTa2UJ89J8L"
         volumes:
             - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
             - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
@@ -25,6 +29,8 @@ services:
         volumes:
             - ./:/var/www
         #      - ./php/ini:/usr/local/etc/php-fpm.conf
+        links:
+            - rabbitmq
         networks:
             - laravel
 
@@ -34,9 +40,9 @@ services:
         restart: unless-stopped
         environment:
             MYSQL_DATABASE: default
-            MYSQL_ROOT_PASSWORD: default
-            MYSQL_PASSWORD: default
-            MYSQL_USER: default
+            MYSQL_ROOT_PASSWORD: admin
+            MYSQL_PASSWORD: agxQbNd9ghBdLSpA
+            MYSQL_USER: admin
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
         volumes:

@@ -16,7 +16,8 @@ class CreateProxyTable extends Migration
         Schema::create('proxies', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string("proxy");
+            $table->string("proxy_address");
+            $table->string("proxy_port");
             $table->string("status")->default("Not verified");
         });
     }

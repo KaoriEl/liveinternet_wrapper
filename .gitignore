@@ -3,7 +3,6 @@
 /public/storage
 /storage/*.key
 /vendor
-/golang/vendor
 .env
 .phpunit.result.cache
 docker-compose.override.yml

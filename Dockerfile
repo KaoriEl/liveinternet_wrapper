@@ -31,7 +31,7 @@ RUN \
 
 COPY ./phpSupervisord/supervisord.conf /etc/supervisord.conf
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath mysqli
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath mysqli sockets
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

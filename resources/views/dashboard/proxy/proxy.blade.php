@@ -57,7 +57,7 @@
                 @foreach($proxies as $proxy)
                     <tr>
                         <td>{{ $proxy->id  }}</td>
-                        <td>{{ $proxy->proxy }}</td>
+                        <td>{{ $proxy->proxy_address }}:{{$proxy->proxy_port}}</td>
                         @switch($proxy->status)
                             @case("ACTIVE")
                             <td style="color: green">Активный</td>

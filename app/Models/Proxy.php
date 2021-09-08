@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Proxy extends Model
 {
-    protected $fillable = ['proxy', 'status',];
+    protected $fillable = ['proxy_address', 'proxy_port', 'status',];
 }
