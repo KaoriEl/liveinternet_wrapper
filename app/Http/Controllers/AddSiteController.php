@@ -12,6 +12,11 @@ class AddSiteController extends Controller
         return view('dashboard.add_site');
     }
 
+    /**
+     * Сохраниние в бд сайта
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function save(Request $request){
         if ($request->has('url')) {
             $site = new Sites();
@@ -21,6 +26,11 @@ class AddSiteController extends Controller
         return redirect()->route('dashboard');
     }
 
+    /**
+     * Удаление сайта
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
         $site = Sites::find($id);

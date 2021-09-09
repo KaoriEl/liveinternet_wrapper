@@ -18,6 +18,9 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class SiteController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function index()
     {
         $sites = DB::table("sites")->orderBy("status", "ASC")->paginate(20);
@@ -26,33 +29,84 @@ class SiteController extends Controller
     }
 
     /**
+     * Крч, тут идет разделение на кучу мелких задач, так как если надо крутить больше 10 то начинается сильная загрузка сервера
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
      * @throws Exception
      */
     public function wrapper(Request $request)
     {
+        //Это лютейший костыль
+        $siteUrl = $request->input('SiteUrl');
+        if ($request->input('count_wrapp') > 10 && $request->input('count_wrapp') < 300){
+            $count = intdiv($request->input('count_wrapp'),  10);
+            $this->SmartWrapper($count,$siteUrl);
+        }elseif ($request->input('count_wrapp') > 300 && $request->input('count_wrapp') < 1000){
+            $count = intdiv($request->input('count_wrapp'),  100);
+            $this->SmartWrapper($count,$siteUrl);
+        }elseif ($request->input('count_wrapp') >= 1000 && $request->input('count_wrapp') <= 2000){
+            $count = intdiv($request->input('count_wrapp'),  100);
+            $this->SmartWrapper($count,$siteUrl);
+        }elseif ($request->input('count_wrapp') > 2000 && $request->input('count_wrapp') <= 4000){
+            $count = intdiv($request->input('count_wrapp'),  200);
+            $this->SmartWrapper($count,$siteUrl);
+        }elseif ($request->input('count_wrapp') > 4000 && $request->input('count_wrapp') <= 10000){
+            $count = intdiv($request->input('count_wrapp'),  500);
+            $this->SmartWrapper($count,$siteUrl);
+        }elseif ($request->input('count_wrapp') < 10){
+            $connection = new AMQPStreamConnection(env("RABBITMQ_HOST"), env("RABBITMQ_PORT"), env("RABBITMQ_LOGIN"), env("RABBITMQ_PASSWORD"));
+            $channel = $connection->channel();
+
+            if ($request->input('count_wrapp') !== null){
+                $proxyList = DB::table("proxies")->inRandomOrder()->where("status", "ACTIVE")->take($request->input('count_wrapp'))->get();
+            }else{
+                dd("Нет кол-ва для накрутки");
+            }
+            $msg = [
+                'site_url' => $siteUrl,
+                'count_wrapp' => $request->input('count_wrapp'),
+                'proxyList' => json_encode($proxyList),
+            ];
+            $msg = json_encode($msg);
+            $msg = new AMQPMessage($msg);
+            $channel->basic_publish($msg, '', 'Queue_wrapper');
+
+            $channel->close();
+            $connection->close();
+
+            return redirect('/');
+        }
+    }
+
+    /**
+     * Складываю в очереди рэббита разбитые подзадачи
+     * @param $count
+     * @param $siteUrl
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws Exception
+     */
+    public function SmartWrapper($count,$siteUrl) {
         $connection = new AMQPStreamConnection(env("RABBITMQ_HOST"), env("RABBITMQ_PORT"), env("RABBITMQ_LOGIN"), env("RABBITMQ_PASSWORD"));
         $channel = $connection->channel();
 
-        if ($request->input('count_wrapp') !== null){
-            $proxyList = DB::table("proxies")->inRandomOrder()->where("status", "ACTIVE")->take($request->input('count_wrapp'))->get();
-        }else{
-            dd("Нет кол-ва для накрутки");
+        for ($i = 0; $i <= $count; $i++){
+
+            if ($count !== null){
+                $proxyList = DB::table("proxies")->inRandomOrder()->where("status", "ACTIVE")->take($count)->get();
+            }else{
+                dd("Нет кол-ва для накрутки");
+            }
+            $msg = [
+                'site_url' => $siteUrl,
+                'count_wrapp' => "$count",
+                'proxyList' => json_encode($proxyList),
+            ];
+            $msg = json_encode($msg);
+            $msg = new AMQPMessage($msg);
+            $channel->basic_publish($msg, '', 'Queue_wrapper');
         }
-
-        $msg = [
-            'site_url' => $request->input('SiteUrl'),
-            'count_wrapp' => $request->input('count_wrapp'),
-            'proxyList' => json_encode($proxyList),
-        ];
-
-        $msg = json_encode($msg);
-        $msg = new AMQPMessage($msg);
-        $channel->basic_publish($msg, '', 'Queue_wrapper');
         $channel->close();
         $connection->close();
         return redirect('/');
     }
-
-
-
 }

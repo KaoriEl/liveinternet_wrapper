@@ -19,14 +19,14 @@ type Proxy struct {
     ProxyPort string `json:"proxy_port"`
 }
 
+// inWrapp
+//Получение необходимых данных для накрутки и занесение их в структуру
+//Вызов функции накрутки
+///**
 func inWrapp(TaskList Task) {
    var SiteUrl = TaskList.SiteUrl
    var needWrapping = TaskList.CountWrapping
    var proxyList = TaskList.Proxy
-   log.Println(SiteUrl)
-   log.Println(needWrapping)
-   log.Println(proxyList)
-
    var ProxyList []Proxy
 
    er := json.Unmarshal([]byte(proxyList), &ProxyList)
@@ -37,10 +37,13 @@ func inWrapp(TaskList Task) {
        fmt.Println(ProxyList)
    }
 
-   go boost(ProxyList, needWrapping, SiteUrl, TaskList)
+   boost(ProxyList, needWrapping, SiteUrl, TaskList)
 }
 
 
+// boost
+//Та самая накрутка, создает кучу браузеров в разных рутинах
+///**
 func boost(ProxyList []Proxy, needWrapping string, SiteUrl string, TaskList Task) {
     if needWrapping, err := strconv.Atoi(needWrapping); err == nil {
         fmt.Println(needWrapping)
@@ -93,6 +96,10 @@ func boost(ProxyList []Proxy, needWrapping string, SiteUrl string, TaskList Task
     ResponseStatusStop(TaskList)
 }
 
+
+// boost
+//Парсю юзерагенты из txt файлика
+///**
 func userAgent(TaskList Task) []string{
     var agent []string
     file, err := os.Open("./useragents.txt")

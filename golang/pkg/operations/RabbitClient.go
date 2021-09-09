@@ -15,6 +15,9 @@ type Task struct {
 
 }
 
+/**
+Это подключает ENV
+ */
 func init() {
     err := godotenv.Load()
     if err != nil {
@@ -22,12 +25,20 @@ func init() {
     }
 }
 
+/**
+Обработчик ерроров рэббита
+*/
 func failOnError(err error, msg string) {
     if err != nil {
         log.Fatalf("%s: %s", msg, err)
     }
 }
 
+// RabbitGetMsg
+//Крч тут в новой рутине запускается сервер для отправки статусов
+//Далее подключение и прослушивание канала очереди рэббита
+//Запуск воркера
+///**
 func RabbitGetMsg() string{
     go server()
     conn, err := amqp.Dial("amqp://" + os.Getenv("USERNAME_RABBIT_MQ") + ":" + os.Getenv("PASSWORD_RABBIT_MQ") + "@rabbitmq:5672/")
@@ -61,15 +72,14 @@ func RabbitGetMsg() string{
     )
 
     forever := make(chan bool)
-    go func() {
+
         for d := range msgs {
             log.Println("----------------New-Msg---------------")
             log.Println("Received a message: %s", d.Body)
             log.Println("--------------------------------------")
-            go Worker(d.Body)
-        }
+            Worker(d.Body)
 
-    }()
+        }
 
     log.Println(" [*] Waiting for messages. [*]")
     <-forever
@@ -77,6 +87,10 @@ func RabbitGetMsg() string{
     return "ok"
 }
 
+// Worker
+//Отсылает статус взята ли задача в работу
+//Если взял в работу запускает обертку в накрутку
+///**
 func Worker(msg []byte){
     var TaskList Task
     er := json.Unmarshal(msg, &TaskList)

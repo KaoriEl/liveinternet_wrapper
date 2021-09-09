@@ -12,6 +12,10 @@ use PhpAmqpLib\Message\AMQPMessage;
 class ApiController extends Controller
 {
 
+    /**
+     * Принимает из го статусы, и обновляет их в бд
+     * @param Request $request
+     */
     public function status(Request $request)
     {
         if ($request->has('url') && $request->has('status')) {

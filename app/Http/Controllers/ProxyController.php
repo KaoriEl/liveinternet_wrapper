@@ -8,12 +8,20 @@ use Illuminate\Support\Facades\DB;
 
 class ProxyController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function index()
     {
         $proxies = DB::table("proxies")->orderBy("status", "ASC")->paginate(20);
         return view('dashboard.proxy.proxy', compact('proxies'));
     }
 
+    /**
+     * Сохроаниение в бд
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function save(Request $request)
     {
         if ($request->has('proxy')) {
@@ -29,6 +37,11 @@ class ProxyController extends Controller
         return redirect()->route('add_proxy');
     }
 
+    /**
+     * Обрезаю прокси для разбивки на порт и айпишник
+     * @param $raw_proxy
+     * @return mixed
+     */
     public function regex($raw_proxy)
     {
 
@@ -40,6 +53,11 @@ class ProxyController extends Controller
         return $proxy;
     }
 
+    /**
+     * Удаление из бд прокси
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
         $site = Proxy::find($id);

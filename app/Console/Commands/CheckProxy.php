@@ -33,7 +33,7 @@ class CheckProxy extends Command
     }
 
     /**
-     * Execute the console command.
+     * Чекает прокси на активность
      *
      * @return int
      */

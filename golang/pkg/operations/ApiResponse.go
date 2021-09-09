@@ -27,11 +27,17 @@ func server() {
 	}
 }
 
+// basicAuth
+//Создает пару логин пароль для nginx auth
+///**
 func basicAuth(username, password string) string {
     auth := username + ":" + password
     return base64.StdEncoding.EncodeToString([]byte(auth))
 }
 
+// ResponseStatusSuccessfully
+//Отправка статуса в пхп о том что задача взята в работу
+///**
 func ResponseStatusSuccessfully(TaskList Task) {
     var req *http.Request
     var username = os.Getenv("AUTH_NGINX_USERNAME")
@@ -54,7 +60,9 @@ func ResponseStatusSuccessfully(TaskList Task) {
 
 }
 
-
+// ResponseStatusStop
+//Отправка статуса в пхп о том что задача окончена в работу
+///**
 func ResponseStatusStop(TaskList Task) {
     var req *http.Request
     var username = os.Getenv("AUTH_NGINX_USERNAME")
@@ -77,7 +85,9 @@ func ResponseStatusStop(TaskList Task) {
 
 }
 
-
+// ResponseStatusError
+//Отправка статуса в пхп о том что задача завершилась с ошибкой
+///**
 func ResponseStatusError(TaskList Task) {
     var req *http.Request
     var username = os.Getenv("AUTH_NGINX_USERNAME")
