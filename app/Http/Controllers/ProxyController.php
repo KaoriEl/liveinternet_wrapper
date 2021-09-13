@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Proxy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+
 
 class ProxyController extends Controller
 {
@@ -36,6 +38,40 @@ class ProxyController extends Controller
         }
         return redirect()->route('add_proxy');
     }
+
+
+    /**
+     * Сохроаниение и распарсинг листа прокси
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function saveList(Request $request)
+    {
+        //Сохранение файла
+        if ($request->isMethod('post')) {
+            if ($request->hasFile("proxy_list")) {
+                $file = $request->file('proxy_list');
+                $file->move(public_path() . '/proxyList', 'proxylist.txt');
+            }
+        }
+
+        //Парсинг файла
+        $filename = public_path() . '/proxyList/proxylist.txt';
+
+        foreach (file($filename) as $line) {
+            $proxy = $this->regex($line);
+            $proxy_adress = $proxy[0][1];
+            $proxy_port = $proxy[0][2];
+            $proxy = new Proxy();
+            $proxy->proxy_address = $proxy_adress;
+            $proxy->proxy_port = $proxy_port;
+            $proxy->save();
+        }
+
+
+        return redirect()->route('add_proxy');
+    }
+
 
     /**
      * Обрезаю прокси для разбивки на порт и айпишник

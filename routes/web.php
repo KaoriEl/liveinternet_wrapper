@@ -27,6 +27,7 @@ Route::delete('/del_site/{id}', [AddSiteController::class, 'destroy'])->name("de
 
 //Добавить и удалить прокси
 Route::post('/save_proxy', [ProxyController::class, 'save'])->name("save_proxy");
+Route::post('/save_proxy_list', [ProxyController::class, 'saveList'])->name("save_proxy_list");
 Route::delete('/del_proxy/{id}', [ProxyController::class, 'destroy'])->name("destroy_proxy");
 
 //Роуты для работы с rabbitmq

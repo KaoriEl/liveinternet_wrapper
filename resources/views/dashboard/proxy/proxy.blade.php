@@ -9,8 +9,35 @@
         @endif
         <div class="buttons-form mb-3">
             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">Добавить прокси</button>
-            {{--            <button type="button" class="btn btn-primary">Загрузить аккаунты файлом</button>--}}
+            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#ProxyList">Загрузить txt файл с прокси</button>
         </div>
+            <!-- Modal -->
+            <div class="modal fade" id="ProxyList" tabindex="-1" role="dialog" aria-labelledby="ProxyList" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ProxyList">Добавление прокси сервера</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="post" action=" {{ route('save_proxy_list') }} " enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Proxy:</span>
+                                    </div>
+                                    <input class="form-control" type="file" id="formFile" name="proxy_list">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-outline-secondary" type="button" id="parse_comment">Добавить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
         <!-- Button trigger modal -->
             <!-- Modal -->
