@@ -41,19 +41,24 @@ class SiteController extends Controller
         $siteUrl = $request->input('SiteUrl');
         if ($request->input('count_wrapp') > 10 && $request->input('count_wrapp') < 300){
             $count = intdiv($request->input('count_wrapp'),  10);
-            $this->SmartWrapper($count,$siteUrl);
+            $delimiter = 10;
+            $this->SmartWrapper($count,$siteUrl,$delimiter);
         }elseif ($request->input('count_wrapp') > 300 && $request->input('count_wrapp') < 1000){
-            $count = intdiv($request->input('count_wrapp'),  100);
-            $this->SmartWrapper($count,$siteUrl);
+            $count = intdiv($request->input('count_wrapp'),  50);
+            $delimiter = 50;
+            $this->SmartWrapper($count,$siteUrl,$delimiter);
         }elseif ($request->input('count_wrapp') >= 1000 && $request->input('count_wrapp') <= 2000){
             $count = intdiv($request->input('count_wrapp'),  100);
-            $this->SmartWrapper($count,$siteUrl);
+            $delimiter = 100;
+            $this->SmartWrapper($count,$siteUrl,$delimiter);
         }elseif ($request->input('count_wrapp') > 2000 && $request->input('count_wrapp') <= 4000){
             $count = intdiv($request->input('count_wrapp'),  200);
-            $this->SmartWrapper($count,$siteUrl);
+            $delimiter = 200;
+            $this->SmartWrapper($count,$siteUrl,$delimiter);
         }elseif ($request->input('count_wrapp') > 4000 && $request->input('count_wrapp') <= 10000){
             $count = intdiv($request->input('count_wrapp'),  500);
-            $this->SmartWrapper($count,$siteUrl);
+            $delimiter = 500;
+            $this->SmartWrapper($count,$siteUrl,$delimiter);
         }elseif ($request->input('count_wrapp') < 10){
             $connection = new AMQPStreamConnection(env("RABBITMQ_HOST"), env("RABBITMQ_PORT"), env("RABBITMQ_LOGIN"), env("RABBITMQ_PASSWORD"));
             $channel = $connection->channel();
@@ -77,6 +82,7 @@ class SiteController extends Controller
 
             return redirect('/');
         }
+        return redirect('/');
     }
 
     /**
@@ -86,11 +92,11 @@ class SiteController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws Exception
      */
-    public function SmartWrapper($count,$siteUrl) {
+    public function SmartWrapper($count,$siteUrl,$delimiter) {
         $connection = new AMQPStreamConnection(env("RABBITMQ_HOST"), env("RABBITMQ_PORT"), env("RABBITMQ_LOGIN"), env("RABBITMQ_PASSWORD"));
         $channel = $connection->channel();
 
-        for ($i = 0; $i <= $count; $i++){
+        for ($i = 0; $i <= $delimiter; $i++){
 
             if ($count !== null){
                 $proxyList = DB::table("proxies")->inRandomOrder()->where("status", "ACTIVE")->take($count)->get();
