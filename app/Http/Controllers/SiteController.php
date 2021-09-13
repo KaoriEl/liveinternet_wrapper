@@ -36,6 +36,7 @@ class SiteController extends Controller
      */
     public function wrapper(Request $request)
     {
+
         //Это лютейший костыль
         $siteUrl = $request->input('SiteUrl');
         if ($request->input('count_wrapp') > 10 && $request->input('count_wrapp') < 300){

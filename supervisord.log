@@ -11553,3 +11553,159 @@
 2021-09-09 07:47:27,747 INFO spawned: 'app' with pid 34
 2021-09-09 07:47:27,757 INFO exited: app (exit status 1; not expected)
 2021-09-09 07:47:28,759 INFO gave up: app entered FATAL state, too many start retries too quickly
+2021-09-09 07:53:02,486 INFO reaped unknown pid 516
+2021-09-09 07:53:02,490 INFO reaped unknown pid 534
+2021-09-09 07:53:02,491 INFO reaped unknown pid 544
+2021-09-09 07:53:02,491 INFO reaped unknown pid 506
+2021-09-09 07:53:02,491 INFO reaped unknown pid 770
+2021-09-09 07:53:02,492 INFO reaped unknown pid 669
+2021-09-09 07:53:04,452 INFO reaped unknown pid 515
+2021-09-09 07:53:04,457 INFO reaped unknown pid 530
+2021-09-09 07:53:04,458 INFO reaped unknown pid 538
+2021-09-09 07:53:04,459 INFO reaped unknown pid 675
+2021-09-09 07:53:04,459 INFO reaped unknown pid 511
+2021-09-09 07:53:04,460 INFO reaped unknown pid 780
+2021-09-09 07:53:18,454 INFO reaped unknown pid 510
+2021-09-09 07:53:18,459 INFO reaped unknown pid 528
+2021-09-09 07:53:18,459 INFO reaped unknown pid 545
+2021-09-09 07:53:18,461 INFO reaped unknown pid 672
+2021-09-09 07:53:18,461 INFO reaped unknown pid 500
+2021-09-09 07:53:18,462 INFO reaped unknown pid 775
+2021-09-09 07:53:20,298 INFO reaped unknown pid 502
+2021-09-09 07:53:20,300 INFO reaped unknown pid 504
+2021-09-09 07:53:20,303 INFO reaped unknown pid 539
+2021-09-09 07:53:20,309 INFO reaped unknown pid 527
+2021-09-09 07:53:20,310 INFO reaped unknown pid 503
+2021-09-09 07:53:20,311 INFO reaped unknown pid 505
+2021-09-09 07:53:20,313 INFO reaped unknown pid 535
+2021-09-09 07:53:20,315 INFO reaped unknown pid 541
+2021-09-09 07:53:20,316 INFO reaped unknown pid 498
+2021-09-09 07:53:20,317 INFO reaped unknown pid 514
+2021-09-09 07:53:20,318 INFO reaped unknown pid 531
+2021-09-09 07:53:20,318 INFO reaped unknown pid 776
+2021-09-09 07:53:20,319 INFO reaped unknown pid 543
+2021-09-09 07:53:20,320 INFO reaped unknown pid 777
+2021-09-09 07:53:20,320 INFO reaped unknown pid 674
+2021-09-09 07:53:20,321 INFO reaped unknown pid 772
+2021-09-09 07:53:20,321 INFO reaped unknown pid 668
+2021-09-09 07:53:20,322 INFO reaped unknown pid 670
+2021-09-09 07:53:20,323 INFO reaped unknown pid 774
+2021-09-09 07:53:20,323 INFO reaped unknown pid 497
+2021-09-09 07:53:20,324 INFO reaped unknown pid 501
+2021-09-09 07:53:20,325 INFO reaped unknown pid 529
+2021-09-09 07:53:20,325 INFO reaped unknown pid 540
+2021-09-09 07:53:20,326 INFO reaped unknown pid 673
+2021-09-09 07:53:20,329 INFO reaped unknown pid 508
+2021-09-09 07:53:20,330 INFO reaped unknown pid 512
+2021-09-09 07:53:20,332 INFO reaped unknown pid 920
+2021-09-09 07:53:20,335 INFO reaped unknown pid 533
+2021-09-09 07:53:20,336 INFO reaped unknown pid 921
+2021-09-09 07:53:20,337 INFO reaped unknown pid 924
+2021-09-09 07:53:20,338 INFO reaped unknown pid 968
+2021-09-09 07:53:20,339 INFO reaped unknown pid 969
+2021-09-09 07:53:20,340 INFO reaped unknown pid 1015
+2021-09-09 07:53:20,341 INFO reaped unknown pid 923
+2021-09-09 07:53:20,342 INFO reaped unknown pid 1016
+2021-09-09 07:53:20,344 INFO reaped unknown pid 1018
+2021-09-09 07:53:20,346 INFO reaped unknown pid 542
+2021-09-09 07:53:20,349 INFO reaped unknown pid 971
+2021-09-09 07:53:20,352 INFO reaped unknown pid 972
+2021-09-09 07:53:20,354 INFO reaped unknown pid 1019
+2021-09-09 07:53:20,355 INFO reaped unknown pid 667
+2021-09-09 07:53:20,356 INFO reaped unknown pid 944
+2021-09-09 07:53:20,358 INFO reaped unknown pid 769
+2021-09-09 07:53:20,374 INFO reaped unknown pid 507
+2021-09-09 07:53:20,375 INFO reaped unknown pid 513
+2021-09-09 07:53:20,377 INFO reaped unknown pid 532
+2021-09-09 07:53:20,378 INFO reaped unknown pid 537
+2021-09-09 07:53:20,379 INFO reaped unknown pid 1039
+2021-09-09 07:53:20,380 INFO reaped unknown pid 685
+2021-09-09 07:53:20,382 INFO reaped unknown pid 1034
+2021-09-09 07:53:20,383 INFO reaped unknown pid 671
+2021-09-09 07:53:20,385 INFO reaped unknown pid 941
+2021-09-09 07:53:20,387 INFO reaped unknown pid 779
+2021-09-09 07:53:20,388 INFO reaped unknown pid 499
+2021-09-09 07:53:20,389 INFO reaped unknown pid 509
+2021-09-09 07:53:20,390 INFO reaped unknown pid 536
+2021-09-09 07:53:20,391 INFO reaped unknown pid 546
+2021-09-09 07:53:20,392 INFO reaped unknown pid 991
+2021-09-09 07:53:20,393 INFO reaped unknown pid 773
+2021-09-09 07:53:20,394 INFO reaped unknown pid 987
+2021-09-09 07:53:20,509 INFO reaped unknown pid 1072
+2021-09-09 07:53:20,516 INFO reaped unknown pid 1107
+2021-09-09 07:53:20,517 INFO reaped unknown pid 1103
+2021-09-09 07:53:20,518 INFO reaped unknown pid 1096
+2021-09-09 07:53:20,519 INFO reaped unknown pid 1121
+2021-09-09 07:53:20,520 INFO reaped unknown pid 1122
+2021-09-09 07:53:20,520 INFO reaped unknown pid 1160
+2021-09-09 07:53:20,521 INFO reaped unknown pid 1162
+2021-09-09 07:53:20,521 INFO reaped unknown pid 1093
+2021-09-09 07:53:20,522 INFO reaped unknown pid 1094
+2021-09-09 07:53:20,522 INFO reaped unknown pid 1141
+2021-09-09 07:53:20,522 INFO reaped unknown pid 1142
+2021-09-09 07:53:20,523 INFO reaped unknown pid 1215
+2021-09-09 07:53:20,523 INFO reaped unknown pid 1217
+2021-09-09 07:53:20,523 INFO reaped unknown pid 1336
+2021-09-09 07:53:20,524 INFO reaped unknown pid 1343
+2021-09-09 07:53:20,524 INFO reaped unknown pid 1144
+2021-09-09 07:53:20,524 INFO reaped unknown pid 1145
+2021-09-09 07:53:20,524 INFO reaped unknown pid 1276
+2021-09-09 07:53:20,524 INFO reaped unknown pid 1281
+2021-09-09 07:53:20,553 INFO reaped unknown pid 1067
+2021-09-09 07:53:20,553 INFO reaped unknown pid 1068
+2021-09-09 07:53:20,554 INFO reaped unknown pid 1069
+2021-09-09 07:53:20,555 INFO reaped unknown pid 1095
+2021-09-09 07:53:20,555 INFO reaped unknown pid 1097
+2021-09-09 07:53:20,556 INFO reaped unknown pid 1102
+2021-09-09 07:53:20,557 INFO reaped unknown pid 1088
+2021-09-09 07:53:20,557 INFO reaped unknown pid 1089
+2021-09-09 07:53:20,557 INFO reaped unknown pid 1127
+2021-09-09 07:53:20,558 INFO reaped unknown pid 1129
+2021-09-09 07:53:20,558 INFO reaped unknown pid 1085
+2021-09-09 07:53:20,558 INFO reaped unknown pid 1086
+2021-09-09 07:53:20,559 INFO reaped unknown pid 1135
+2021-09-09 07:53:20,560 INFO reaped unknown pid 1139
+2021-09-09 07:53:20,560 INFO reaped unknown pid 1136
+2021-09-09 07:53:20,560 INFO reaped unknown pid 1137
+2021-09-09 07:53:20,561 INFO reaped unknown pid 1153
+2021-09-09 07:53:20,561 INFO reaped unknown pid 1154
+2021-09-09 07:53:20,561 INFO reaped unknown pid 1090
+2021-09-09 07:53:20,562 INFO reaped unknown pid 1091
+2021-09-09 07:53:20,562 INFO reaped unknown pid 1133
+2021-09-09 07:53:20,562 INFO reaped unknown pid 1138
+2021-09-09 07:53:20,563 INFO reaped unknown pid 1119
+2021-09-09 07:53:20,563 INFO reaped unknown pid 1120
+2021-09-09 07:53:20,563 INFO reaped unknown pid 1149
+2021-09-09 07:53:20,563 INFO reaped unknown pid 1151
+2021-09-09 07:53:20,564 INFO reaped unknown pid 1112
+2021-09-09 07:53:20,564 INFO reaped unknown pid 1114
+2021-09-09 07:53:20,564 INFO reaped unknown pid 1184
+2021-09-09 07:53:20,565 INFO reaped unknown pid 1190
+2021-09-09 07:53:20,565 INFO reaped unknown pid 1315
+2021-09-09 07:53:20,565 INFO reaped unknown pid 1265
+2021-09-09 07:53:20,566 INFO reaped unknown pid 1222
+2021-09-09 07:53:35,494 INFO reaped unknown pid 1213
+2021-09-09 07:53:35,501 INFO reaped unknown pid 1318
+2021-09-09 07:53:35,504 INFO reaped unknown pid 1319
+2021-09-09 07:53:35,505 INFO reaped unknown pid 1339
+2021-09-09 07:53:35,509 INFO reaped unknown pid 1205
+2021-09-09 07:53:35,510 INFO reaped unknown pid 1305
+2021-09-09 07:53:35,518 INFO reaped unknown pid 1317
+2021-09-09 07:53:35,562 INFO reaped unknown pid 1320
+2021-09-13 03:09:02,509 INFO Set uid to user 0 succeeded
+2021-09-13 03:09:02,528 INFO supervisord started with pid 1
+2021-09-13 03:09:03,536 INFO spawned: 'cron' with pid 7
+2021-09-13 03:09:03,573 INFO spawned: 'php-fpm' with pid 8
+2021-09-13 03:09:05,010 INFO success: cron entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-09-13 03:09:05,014 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-09-13 03:10:17,749 INFO Set uid to user 0 succeeded
+2021-09-13 03:10:17,758 INFO supervisord started with pid 1
+2021-09-13 03:10:18,761 INFO spawned: 'app' with pid 9
+2021-09-13 03:10:18,833 INFO exited: app (exit status 1; not expected)
+2021-09-13 03:10:19,836 INFO spawned: 'app' with pid 15
+2021-09-13 03:10:19,861 INFO exited: app (exit status 1; not expected)
+2021-09-13 03:10:21,866 INFO spawned: 'app' with pid 21
+2021-09-13 03:10:21,885 INFO exited: app (exit status 1; not expected)
+2021-09-13 03:10:24,890 INFO spawned: 'app' with pid 28
+2021-09-13 03:10:24,906 INFO exited: app (exit status 1; not expected)
+2021-09-13 03:10:25,908 INFO gave up: app entered FATAL state, too many start retries too quickly
