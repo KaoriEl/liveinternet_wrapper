@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Console\Commands\CheckProxy;
 use App\Jobs\WrappingJob;
 use App\Models\Proxy;
 use App\Models\Sites;
 use Bschmitt\Amqp\Amqp;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Redirect;
@@ -93,6 +95,7 @@ class SiteController extends Controller
      * @throws Exception
      */
     public function SmartWrapper($count,$siteUrl,$delimiter) {
+        Artisan::call("proxy:check");
         $connection = new AMQPStreamConnection(env("RABBITMQ_HOST"), env("RABBITMQ_PORT"), env("RABBITMQ_LOGIN"), env("RABBITMQ_PASSWORD"));
         $channel = $connection->channel();
 

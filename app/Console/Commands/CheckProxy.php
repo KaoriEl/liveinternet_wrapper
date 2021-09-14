@@ -65,10 +65,10 @@ class CheckProxy extends Command
         foreach ($proxies as $proxy) {
             if ($proxy["valid"] == "true") {
                 DB::table("proxies")->where("proxy_address", $proxy["ip"])->update(['status' => "ACTIVE",]);
-                echo 'ONLINE: ' . $proxy["ip"] . ":" . $proxy["port"] . PHP_EOL;
+                //echo 'ONLINE: ' . $proxy["ip"] . ":" . $proxy["port"] . PHP_EOL;
             } else {
                 DB::table("proxies")->where("proxy_address", $proxy["ip"])->update(['status' => "INACTIVE",]);
-                echo 'OFFLINE: ' . $proxy["ip"] . ":" . $proxy["port"] . PHP_EOL;
+               // echo 'OFFLINE: ' . $proxy["ip"] . ":" . $proxy["port"] . PHP_EOL;
             }
         }
 
