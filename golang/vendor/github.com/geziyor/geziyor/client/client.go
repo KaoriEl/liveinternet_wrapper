@@ -225,7 +225,7 @@ func (c *Client) doRequestChrome(req *Request) (*Response, error) {
         //fmt.Println(c.opt.RandomSleep)
     if c.opt.RandomSleep == true {
         rand.Seed(time.Now().UnixNano())
-        randSleep = rand.Intn(300)
+        randSleep = rand.Intn(20)
         fmt.Println(randSleep)
     }else{
         randSleep = 0
@@ -235,6 +235,7 @@ func (c *Client) doRequestChrome(req *Request) (*Response, error) {
     if c.opt.ProxyAdress != "none" || c.opt.ProxyPort != "none"  {
         if err := chromedp.Run(ctx,
             fetch.Enable().WithHandleAuthRequests(true),
+            chromedp.Sleep(time.Duration(randSleep)*time.Second),
             network.Enable(),
             network.SetExtraHTTPHeaders(ConvertHeaderToMap(req.Header)),
             chromedp.ActionFunc(func(ctx context.Context) error {
@@ -260,7 +261,6 @@ func (c *Client) doRequestChrome(req *Request) (*Response, error) {
             }),
             chromedp.Navigate(req.URL.String()),
             chromedp.WaitReady(":root"),
-            chromedp.Sleep(time.Duration(randSleep)*time.Second),
             chromedp.ActionFunc(func(ctx context.Context) error {
                 node, err := dom.GetDocument().Do(ctx)
                 if err != nil {
