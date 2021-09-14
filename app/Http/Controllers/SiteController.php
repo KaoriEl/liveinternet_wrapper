@@ -8,7 +8,10 @@ use App\Models\Proxy;
 use App\Models\Sites;
 use Bschmitt\Amqp\Amqp;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Queue;
@@ -21,7 +24,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 class SiteController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -33,7 +36,7 @@ class SiteController extends Controller
     /**
      * Крч, тут идет разделение на кучу мелких задач, так как если надо крутить больше 10 то начинается сильная загрузка сервера
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     * @return Application|RedirectResponse|Redirector|void
      * @throws Exception
      */
     public function wrapper(Request $request)
@@ -91,11 +94,11 @@ class SiteController extends Controller
      * Складываю в очереди рэббита разбитые подзадачи
      * @param $count
      * @param $siteUrl
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return Application|RedirectResponse|Redirector
      * @throws Exception
      */
     public function SmartWrapper($count,$siteUrl,$delimiter) {
-        Artisan::call("proxy:check");
+        Artisan::queue("proxy:check");
         $connection = new AMQPStreamConnection(env("RABBITMQ_HOST"), env("RABBITMQ_PORT"), env("RABBITMQ_LOGIN"), env("RABBITMQ_PASSWORD"));
         $channel = $connection->channel();
 
