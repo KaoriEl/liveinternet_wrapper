@@ -80,6 +80,24 @@
                                 <div class="buttons-form mb-3">
                                     <button type="button" id="{{ $site->id  }}" class="btn btn-outline-success wrapper" data-toggle="modal" data-target="#exampleModal" style="width: 100%">В накрутку</button>
                                 </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModal" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="alert" style="max-width: 600px; display: flex; flex-wrap: wrap; flex-direction: column; margin-top: 15%;">
+                                        <div class="cicle-suc">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="svg-success" viewBox="0 0 24 24">
+                                                <g stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+                                                    <circle class="success-circle-outline" cx="12" cy="12" r="11.5"/>
+                                                    <circle class="success-circle-fill" cx="12" cy="12" r="11.5"/>
+                                                    <polyline class="success-tick" points="17,8.5 9.5,15.5 7,13"/>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div class="alert alert-success" role="alert">
+                                            Задача отправляется в накрутку, пожалуйста не закрывайте страницу.
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -104,7 +122,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <p class="font-weight-light" style="font-size: 16px; color: red; display: none" id="warning_message">Введите кол-во для накрутки не превышающее кол-во доступных прокси!</p>
-                                                    <button type="submit" id="inWrapp" class="btn btn-outline-secondary">Накрутить</button>
+                                                    <button type="submit" id="inWrapp" class="btn btn-outline-secondary" data-toggle="modal" data-target="#alertModal">Накрутить</button>
                                                 </div>
                                             </form>
                                         </div>

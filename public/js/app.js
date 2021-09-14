@@ -2070,6 +2070,23 @@ $('.wrapper').on('click', function () {
     }
   });
 });
+$("#wrapper").submit(function (e) {
+  e.preventDefault(); // avoid to execute the actual submit of the form.
+
+  var form = $(this);
+  var url = form.attr('action');
+  $('#exampleModal').modal('hide');
+  setTimeout(function () {
+    $('#alertModal').modal('hide');
+  }, 3000);
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: form.serialize(),
+    // serializes the form's elements.
+    success: function success(data) {}
+  });
+});
 document.addEventListener("DOMContentLoaded", function (event) {
   var input = document.getElementById('count_wrapp');
   var max_count = document.getElementById('max_count');

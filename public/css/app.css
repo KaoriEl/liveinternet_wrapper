@@ -8134,3 +8134,120 @@ a.text-dark:hover, a.text-dark:focus {
     }
 }
 
+.svg-success {
+    display: inline-block;
+    vertical-align: top;
+    height: 130px;
+    width: 100px;
+    opacity: 1;
+    overflow: visible;
+}
+@-webkit-keyframes success-tick {
+    0% {
+        stroke-dashoffset: 16px;
+        opacity: 1;
+    }
+    100% {
+        stroke-dashoffset: 31px;
+        opacity: 1;
+    }
+}
+@keyframes success-tick {
+    0% {
+        stroke-dashoffset: 16px;
+        opacity: 1;
+    }
+    100% {
+        stroke-dashoffset: 31px;
+        opacity: 1;
+    }
+}
+@-webkit-keyframes success-circle-outline {
+    0% {
+        stroke-dashoffset: 72px;
+        opacity: 1;
+    }
+    100% {
+        stroke-dashoffset: 0px;
+        opacity: 1;
+    }
+}
+@keyframes success-circle-outline {
+    0% {
+        stroke-dashoffset: 72px;
+        opacity: 1;
+    }
+    100% {
+        stroke-dashoffset: 0px;
+        opacity: 1;
+    }
+}
+@-webkit-keyframes success-circle-fill {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes success-circle-fill {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.cicle-suc{
+    display: flex;
+    justify-content: center;
+}
+.svg-success .success-tick {
+    fill: none;
+    stroke-width: 1px;
+    stroke: #ffffff;
+    stroke-dasharray: 15px, 15px;
+    stroke-dashoffset: -14px;
+    -webkit-animation: success-tick 100ms ease 1400ms forwards;
+    animation: success-tick 100ms ease 1400ms forwards;
+    opacity: 0;
+}
+.svg-success .success-circle-outline {
+    fill: none;
+    stroke-width: 1px;
+    stroke: #81c038;
+    stroke-dasharray: 72px, 72px;
+    stroke-dashoffset: 72px;
+    -webkit-animation: success-circle-outline 300ms ease-in-out 800ms forwards;
+    animation: success-circle-outline 300ms ease-in-out 800ms forwards;
+    opacity: 0;
+}
+.svg-success .success-circle-fill {
+    fill: #81c038;
+    stroke: none;
+    opacity: 0;
+    -webkit-animation: success-circle-fill 300ms ease-out 1100ms forwards;
+    animation: success-circle-fill 300ms ease-out 1100ms forwards;
+}
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+    .svg-success .success-tick {
+        stroke-dasharray: 0;
+        stroke-dashoffset: 0;
+        -webkit-animation: none;
+        animation: none;
+        opacity: 1;
+    }
+    .svg-success .success-circle-outline {
+        stroke-dasharray: 0;
+        stroke-dashoffset: 0;
+        -webkit-animation: none;
+        animation: none;
+        opacity: 1;
+    }
+    .svg-success .success-circle-fill {
+        -webkit-animation: none;
+        animation: none;
+        opacity: 1;
+    }
+}
+
