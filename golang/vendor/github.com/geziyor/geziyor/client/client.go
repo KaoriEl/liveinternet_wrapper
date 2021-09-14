@@ -225,7 +225,7 @@ func (c *Client) doRequestChrome(req *Request) (*Response, error) {
         //fmt.Println(c.opt.RandomSleep)
     if c.opt.RandomSleep == true {
         rand.Seed(time.Now().UnixNano())
-        randSleep = rand.Intn(20)
+        randSleep = rand.Intn(200)
         fmt.Println(randSleep)
     }else{
         randSleep = 0
@@ -260,6 +260,7 @@ func (c *Client) doRequestChrome(req *Request) (*Response, error) {
                 return nil
             }),
             chromedp.Navigate(req.URL.String()),
+            chromedp.Sleep(time.Duration(randSleep)*time.Second),
             chromedp.WaitReady(":root"),
             chromedp.ActionFunc(func(ctx context.Context) error {
                 node, err := dom.GetDocument().Do(ctx)
