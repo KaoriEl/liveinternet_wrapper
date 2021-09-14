@@ -13,7 +13,8 @@
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "php-amqplib/php-amqplib": "^3.0"
+        "php-amqplib/php-amqplib": "^3.0",
+      "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
