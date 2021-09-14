@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Exception;
@@ -38,30 +39,17 @@ class CheckProxy extends Command
      * Чекает прокси на активность
      *
      * @return int
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function handle()
     {
         $proxies = DB::table("proxies")->get();
 
         $arr = array();
-        foreach ($proxies as $proxy){
+        foreach ($proxies as $proxy) {
 
             array_push($arr, $proxy->proxy_address . ":" . $proxy->proxy_port);
 
-
-
-//            $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-//            $connection =  @socket_connect($socket, $proxy->proxy_address, $proxy->proxy_port);
-//
-//            if( $connection ){
-//                DB::table("proxies")->where("proxy_address", $proxy->proxy_address)->update(['status'=>"ACTIVE",]);
-//                echo 'ONLINE';
-//            }
-//            else {
-//                DB::table("proxies")->where("proxy_address", $proxy->proxy_address)->update(['status'=>"INACTIVE",]);
-//                echo 'OFFLINE: ' . socket_strerror(socket_last_error( $socket ));
-//            }
         }
         $string = implode(PHP_EOL, $arr);
 
@@ -74,13 +62,12 @@ class CheckProxy extends Command
 
         $proxies = json_decode($response->getBody()->getContents(), true);
 
-        foreach ($proxies as $proxy){
-            if($proxy["valid"] == "true"){
-                DB::table("proxies")->where("proxy_address", $proxy["ip"])->update(['status'=>"ACTIVE",]);
+        foreach ($proxies as $proxy) {
+            if ($proxy["valid"] == "true") {
+                DB::table("proxies")->where("proxy_address", $proxy["ip"])->update(['status' => "ACTIVE",]);
                 echo 'ONLINE: ' . $proxy["ip"] . ":" . $proxy["port"] . PHP_EOL;
-            }
-            else {
-                DB::table("proxies")->where("proxy_address", $proxy["ip"])->update(['status'=>"INACTIVE",]);
+            } else {
+                DB::table("proxies")->where("proxy_address", $proxy["ip"])->update(['status' => "INACTIVE",]);
                 echo 'OFFLINE: ' . $proxy["ip"] . ":" . $proxy["port"] . PHP_EOL;
             }
         }
