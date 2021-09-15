@@ -60,8 +60,9 @@ class ProxyController extends Controller
         $filename = public_path() . '/proxyList/proxylist.txt';
 
         foreach (file($filename) as $line) {
-            if (isset($proxy[0])){
+
                 $proxy = $this->regex($line);
+            if (isset($proxy[0])){
                 $proxy_adress = $proxy[0][1];
                 $proxy_port = $proxy[0][2];
                 $proxy = new Proxy();
