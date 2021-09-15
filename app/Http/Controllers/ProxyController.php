@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Proxy;
 use Illuminate\Http\Request;
+use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -59,13 +60,15 @@ class ProxyController extends Controller
         $filename = public_path() . '/proxyList/proxylist.txt';
 
         foreach (file($filename) as $line) {
-            $proxy = $this->regex($line);
-            $proxy_adress = $proxy[0][1];
-            $proxy_port = $proxy[0][2];
-            $proxy = new Proxy();
-            $proxy->proxy_address = $proxy_adress;
-            $proxy->proxy_port = $proxy_port;
-            $proxy->save();
+            if (isset($proxy[0])){
+                $proxy = $this->regex($line);
+                $proxy_adress = $proxy[0][1];
+                $proxy_port = $proxy[0][2];
+                $proxy = new Proxy();
+                $proxy->proxy_address = $proxy_adress;
+                $proxy->proxy_port = $proxy_port;
+                $proxy->save();
+            }
         }
 
 
