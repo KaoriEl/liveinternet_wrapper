@@ -13220,3 +13220,8 @@
 2021-09-15 05:46:33,627 INFO spawned: 'app' with pid 29
 2021-09-15 05:46:33,636 INFO exited: app (exit status 1; not expected)
 2021-09-15 05:46:34,638 INFO gave up: app entered FATAL state, too many start retries too quickly
+2021-09-15 08:19:06,496 WARN received SIGTERM indicating exit request
+2021-09-15 08:19:06,604 WARN received SIGQUIT indicating exit request
+2021-09-15 08:19:06,611 INFO waiting for cron, php-fpm to die
+2021-09-15 08:19:06,635 INFO stopped: php-fpm (exit status 0)
+2021-09-15 08:19:06,640 INFO stopped: cron (terminated by SIGTERM)

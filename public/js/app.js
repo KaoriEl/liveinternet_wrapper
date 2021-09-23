@@ -2084,7 +2084,9 @@ $("#wrapper").submit(function (e) {
     url: url,
     data: form.serialize(),
     // serializes the form's elements.
-    success: function success(data) {}
+    success: function success(data) {
+      location.reload();
+    }
   });
 });
 document.addEventListener("DOMContentLoaded", function (event) {
