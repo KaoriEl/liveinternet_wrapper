@@ -225,7 +225,7 @@ func (c *Client) doRequestChrome(req *Request) (*Response, error) {
         //fmt.Println(c.opt.RandomSleep)
     if c.opt.RandomSleep == true {
         rand.Seed(time.Now().UnixNano())
-        randSleep = rand.Intn(20)
+        randSleep = rand.Intn(120)
         fmt.Println(randSleep)
     }else{
         randSleep = 0
