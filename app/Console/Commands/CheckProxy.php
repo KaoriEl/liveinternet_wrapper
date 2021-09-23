@@ -54,7 +54,7 @@ class CheckProxy extends Command
 
         }
 
-        $count_chunk = 20;
+        $count_chunk = 10;
         $size = ceil(count($arr) / $count_chunk);
         $arr = array_chunk($arr, $size);
 
@@ -62,24 +62,29 @@ class CheckProxy extends Command
         for ($i = 0; $i < $count_chunk; $i++) {
             $string = implode(PHP_EOL, $arr[$i]);
 
-            $http = new Client;
-            $response = $http->post('https://proxy-checker.net/api/proxy-checker/', [
-                'form_params' => [
-                    'proxy_list' => $string,
-                ],
-            ]);
+            try {
+                $http = new Client;
+                $response = $http->post('https://proxy-checker.net/api/proxy-checker/', [
+                    'form_params' => [
+                        'proxy_list' => $string,
+                    ],
+                ]);
 
-            $proxies = json_decode($response->getBody()->getContents(), true);
-            sleep(1);
-            foreach ($proxies as $proxy) {
-                if ($proxy["valid"] == "true") {
-                    DB::table("proxies")->where("proxy_address", $proxy["ip"])->update(['status' => "ACTIVE",]);
-                    echo '[Chunk_number = ' . $i . '] ONLINE: ' . $proxy["ip"] . ":" . $proxy["port"] . PHP_EOL;
-                } else {
-                    DB::table("proxies")->where("proxy_address", $proxy["ip"])->update(['status' => "INACTIVE",]);
-                    echo '[Chunk_number = ' . $i . '] OFFLINE: ' . $proxy["ip"] . ":" . $proxy["port"] . PHP_EOL;
+                $proxies = json_decode($response->getBody()->getContents(), true);
+                sleep(1);
+                foreach ($proxies as $proxy) {
+                    if ($proxy["valid"] == "true") {
+                        DB::table("proxies")->where("proxy_address", $proxy["ip"])->update(['status' => "ACTIVE",]);
+                        echo '[Chunk_number = ' . $i . '] ONLINE: ' . $proxy["ip"] . ":" . $proxy["port"] . PHP_EOL;
+                    } else {
+                        DB::table("proxies")->where("proxy_address", $proxy["ip"])->update(['status' => "INACTIVE",]);
+                        echo '[Chunk_number = ' . $i . '] OFFLINE: ' . $proxy["ip"] . ":" . $proxy["port"] . PHP_EOL;
+                    }
                 }
+            }catch (\Exception $exception){
+                return "ok";
             }
+
         }
 
 
