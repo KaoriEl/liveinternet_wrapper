@@ -59,7 +59,7 @@ const (
     DefaultProxyPassword    = "none"
 	DefaultUserAgent        = "Geziyor 1.0"
 	DefaultMaxBody    int64 = 1024 * 1024 * 1024 // 1GB
-	DefaultRetryTimes       = 2
+	DefaultRetryTimes       = 1
 )
 
 var (
