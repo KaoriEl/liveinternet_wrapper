@@ -2,10 +2,9 @@ package operations
 
 import (
     "bufio"
-    "encoding/json"
+    _ "encoding/json"
     "fmt"
     "github.com/geziyor/geziyor"
-    "github.com/geziyor/geziyor/client"
     "log"
     "math/rand"
     "os"
@@ -26,25 +25,25 @@ type Proxy struct {
 func inWrapp(TaskList Task) {
    var SiteUrl = TaskList.SiteUrl
    var needWrapping = TaskList.CountWrapping
-   var proxyList = TaskList.Proxy
-   var ProxyList []Proxy
+   //var proxyList = TaskList.Proxy
+   //var ProxyList []Proxy
 
-   er := json.Unmarshal([]byte(proxyList), &ProxyList)
-   if er != nil {
-       ResponseStatusError(TaskList)
-       panic(er)
-   } else {
-       fmt.Println(ProxyList)
-   }
+   //er := json.Unmarshal([]byte(proxyList), &ProxyList)
+   //if er != nil {
+   //    ResponseStatusError(TaskList)
+   //    panic(er)
+   //} else {
+   //    //fmt.Println(ProxyList)
+   //}
 
-   boost(ProxyList, needWrapping, SiteUrl, TaskList)
+   boost(needWrapping, SiteUrl, TaskList)
 }
 
 
 // boost
 //Та самая накрутка, создает кучу браузеров в разных рутинах
 ///**
-func boost(ProxyList []Proxy, needWrapping string, SiteUrl string, TaskList Task) {
+func boost(needWrapping string, SiteUrl string, TaskList Task) {
     if needWrapping, err := strconv.Atoi(needWrapping); err == nil {
         fmt.Println(needWrapping)
         var pump []string
@@ -58,32 +57,23 @@ func boost(ProxyList []Proxy, needWrapping string, SiteUrl string, TaskList Task
 
         for i := 0; i < len(pump); i++ {
             userAgent := pump[i]
-            ProxyAddress := ProxyList[i].ProxyAddress
-            ProxyPort := ProxyList[i].ProxyPort
-            fmt.Println(ProxyAddress)
-            fmt.Println(ProxyPort)
-            // Увеличиваем WaitGroup счетчик.
             wg.Add(1)
             go func() {
                 defer wg.Done()
                 geziyor.NewGeziyor(&geziyor.Options{
-                    StartRequestsFunc: func(g *geziyor.Geziyor) {
-                        g.GetRendered(SiteUrl, g.Opt.ParseFunc)
-                    },
+                   StartRequestsFunc: func(g *geziyor.Geziyor) {
+                       g.GetRendered(SiteUrl, g.Opt.ParseFunc)
+                   },
 
-                    ParseHTMLDisabled: true,
-                    ParseFunc: func(g *geziyor.Geziyor, r *client.Response) {
-                        file, _ := os.Create("./asdasd.html")
-                        file.Write(r.Body)
-                        file.Close()
-                    },
-                    UserAgent: userAgent,
-                    RobotsTxtDisabled: true,
-                    ProxyAdress: ProxyAddress,
-                    ProxyPort: ProxyPort,
-                    RandomSleep: true,
-                    //ProxyLogin: "Selsagem3455",
-                    //ProxyPassword: "F9g3SnG",
+                   ParseHTMLDisabled: true,
+                   //ParseFunc: func(g *geziyor.Geziyor, r *client.Response) {
+                   //    file, _ := os.Create("./asdasd.html")
+                   //    file.Write(r.Body)
+                   //    file.Close()
+                   //},
+                   UserAgent: userAgent,
+                   RobotsTxtDisabled: true,
+                   RandomSleep: true,
                 }).Start()
 
             }()

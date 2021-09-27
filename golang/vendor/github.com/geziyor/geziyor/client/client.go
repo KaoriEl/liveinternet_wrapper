@@ -17,10 +17,6 @@ import (
 	"net/url"
 	"strings"
 	"time"
-    "net/http/httptest"
-    "net/http/httputil"
-    "github.com/chromedp/cdproto/fetch"
-	"log"
     "math/rand"
 )
 
@@ -37,29 +33,20 @@ type Client struct {
 
 // Options is custom http.client options
 type Options struct {
-	MaxBodySize           int64
-	CharsetDetectDisabled bool
-	RetryTimes            int
-	RetryHTTPCodes        []int
-	RemoteAllocatorURL    string
-    ProxyPort             string
-    ProxyAdress           string
-    ProxyLogin            string
-    ProxyPassword         string
+    MaxBodySize           int64
+    CharsetDetectDisabled bool
+    RetryTimes            int
+    RetryHTTPCodes        []int
+    RemoteAllocatorURL    string
+    AllocatorOptions      []chromedp.ExecAllocatorOption
     RandomSleep           bool
-	AllocatorOptions      []chromedp.ExecAllocatorOption
 }
 
 // Default values for client
 const (
-    DefaultRandomSleep      = "none"
-    DefaultProxyAdress      = "none"
-    DefaultProxyPort        = "none"
-    DefaultProxyLogin       = "none"
-    DefaultProxyPassword    = "none"
 	DefaultUserAgent        = "Geziyor 1.0"
 	DefaultMaxBody    int64 = 1024 * 1024 * 1024 // 1GB
-	DefaultRetryTimes       = 1
+	DefaultRetryTimes       = 2
 )
 
 var (
@@ -171,17 +158,10 @@ func (c *Client) doRequestClient(req *Request) (*Response, error) {
 // doRequestChrome opens up a new chrome instance and makes request
 func (c *Client) doRequestChrome(req *Request) (*Response, error) {
 
-    if c.opt.ProxyAdress != "none" || c.opt.ProxyPort != "none"  {
-        p := httptest.NewServer(newProxy())
-        defer p.Close()
 
-        c.opt.AllocatorOptions = append(chromedp.DefaultExecAllocatorOptions[:],
-            chromedp.ProxyServer(c.opt.ProxyAdress + ":" + c.opt.ProxyPort),
-        )
-    }
-	var body string
+
+    var body string
 	var res *network.Response
-
 	// Set remote allocator or use local chrome instance
 	var ctx context.Context
 	var cancel context.CancelFunc
@@ -193,125 +173,54 @@ func (c *Client) doRequestChrome(req *Request) (*Response, error) {
 	ctx, cancel = chromedp.NewContext(ctx)
 	defer cancel()
 
-        lctx, lcancel := context.WithCancel(ctx)
-        chromedp.ListenTarget(lctx, func(ev interface{}) {
-            switch ev := ev.(type) {
-            case *fetch.EventRequestPaused:
-                go func() {
-                    _ = chromedp.Run(ctx, fetch.ContinueRequest(ev.RequestID))
-                }()
-            case *fetch.EventAuthRequired:
-                if ev.AuthChallenge.Source == fetch.AuthChallengeSourceProxy {
-                    go func() {
-                        _ = chromedp.Run(ctx,
-                            fetch.ContinueWithAuth(ev.RequestID, &fetch.AuthChallengeResponse{
-                                Response: fetch.AuthChallengeResponseResponseProvideCredentials,
-                                Username: c.opt.ProxyLogin,
-                                Password: c.opt.ProxyPassword,
-                            }),
-                            // Chrome will remember the credential for the current instance,
-                            // so we can disable the fetch domain once credential is provided.
-                            // Please file an issue if Chrome does not work in this way.
-                            fetch.Disable(),
-                        )
-                        // and cancel the event handler too.
-                        lcancel()
-                    }()
-                }
-            }
-        })
 
     var randSleep int
-        //fmt.Println(c.opt.RandomSleep)
     if c.opt.RandomSleep == true {
         rand.Seed(time.Now().UnixNano())
-        randSleep = rand.Intn(120)
+        randSleep = rand.Intn(60)
         fmt.Println(randSleep)
     }else{
         randSleep = 0
-        fmt.Println("false")
+        fmt.Println(c.opt.RandomSleep)
     }
-
-    if c.opt.ProxyAdress != "none" || c.opt.ProxyPort != "none"  {
-        if err := chromedp.Run(ctx,
-            fetch.Enable().WithHandleAuthRequests(true),
-            network.Enable(),
-            chromedp.Sleep(time.Duration(randSleep)*time.Second),
-            network.SetExtraHTTPHeaders(ConvertHeaderToMap(req.Header)),
-            chromedp.ActionFunc(func(ctx context.Context) error {
-                var reqID network.RequestID
-                chromedp.ListenTarget(ctx, func(ev interface{}) {
-                    switch ev.(type) {
-                    // Save main request ID to get response of it
-                    case *network.EventRequestWillBeSent:
-                        reqEvent := ev.(*network.EventRequestWillBeSent)
-                        if _, exists := reqEvent.Request.Headers["Referer"]; !exists {
-                            if strings.HasPrefix(reqEvent.Request.URL, "http") {
-                                reqID = reqEvent.RequestID
-                            }
-                        }
-                    // Save response using main request ID
-                    case *network.EventResponseReceived:
-                        if resEvent := ev.(*network.EventResponseReceived); resEvent.RequestID == reqID {
-                            res = resEvent.Response
-                        }
-                    }
-                })
-                return nil
-            }),
-            chromedp.Navigate(req.URL.String()),
-            chromedp.WaitReady(":root"),
-            chromedp.ActionFunc(func(ctx context.Context) error {
-                node, err := dom.GetDocument().Do(ctx)
-                if err != nil {
-                    return err
-                }
-                body, err = dom.GetOuterHTML().WithNodeID(node.NodeID).Do(ctx)
-                return err
-            }),
-        ); err != nil {
-            return nil, fmt.Errorf("request getting rendered: %w", err)
-        }
-    }else{
-        if err := chromedp.Run(ctx,
-            network.Enable(),
-            network.SetExtraHTTPHeaders(ConvertHeaderToMap(req.Header)),
-            chromedp.ActionFunc(func(ctx context.Context) error {
-                var reqID network.RequestID
-                chromedp.ListenTarget(ctx, func(ev interface{}) {
-                    switch ev.(type) {
-                    // Save main request ID to get response of it
-                    case *network.EventRequestWillBeSent:
-                        reqEvent := ev.(*network.EventRequestWillBeSent)
-                        if _, exists := reqEvent.Request.Headers["Referer"]; !exists {
-                            if strings.HasPrefix(reqEvent.Request.URL, "http") {
-                                reqID = reqEvent.RequestID
-                            }
-                        }
-                    // Save response using main request ID
-                    case *network.EventResponseReceived:
-                        if resEvent := ev.(*network.EventResponseReceived); resEvent.RequestID == reqID {
-                            res = resEvent.Response
-                        }
-                    }
-                })
-                return nil
-            }),
-            chromedp.Navigate(req.URL.String()),
-            chromedp.WaitReady(":root"),
-            chromedp.ActionFunc(func(ctx context.Context) error {
-                node, err := dom.GetDocument().Do(ctx)
-                if err != nil {
-                    return err
-                }
-                body, err = dom.GetOuterHTML().WithNodeID(node.NodeID).Do(ctx)
-                return err
-            }),
-        ); err != nil {
-            return nil, fmt.Errorf("request getting rendered: %w", err)
-        }
-    }
-
+	if err := chromedp.Run(ctx,
+		network.Enable(),
+		network.SetExtraHTTPHeaders(ConvertHeaderToMap(req.Header)),
+		chromedp.ActionFunc(func(ctx context.Context) error {
+			var reqID network.RequestID
+			chromedp.ListenTarget(ctx, func(ev interface{}) {
+				switch ev.(type) {
+				// Save main request ID to get response of it
+				case *network.EventRequestWillBeSent:
+					reqEvent := ev.(*network.EventRequestWillBeSent)
+					if _, exists := reqEvent.Request.Headers["Referer"]; !exists {
+						if strings.HasPrefix(reqEvent.Request.URL, "http") {
+							reqID = reqEvent.RequestID
+						}
+					}
+				// Save response using main request ID
+				case *network.EventResponseReceived:
+					if resEvent := ev.(*network.EventResponseReceived); resEvent.RequestID == reqID {
+						res = resEvent.Response
+					}
+				}
+			})
+			return nil
+		}),
+		chromedp.Navigate(req.URL.String()),
+		//chromedp.WaitReady(":root"),
+        chromedp.Sleep(time.Duration(randSleep)*time.Second),
+		chromedp.ActionFunc(func(ctx context.Context) error {
+			node, err := dom.GetDocument().Do(ctx)
+			if err != nil {
+				return err
+			}
+			body, err = dom.GetOuterHTML().WithNodeID(node.NodeID).Do(ctx)
+			return err
+		}),
+	); err != nil {
+		return nil, fmt.Errorf("request getting rendered: %w", err)
+	}
 
 	// Update changed data
 	req.Header = ConvertMapToHeader(res.RequestHeaders)
@@ -330,42 +239,6 @@ func (c *Client) doRequestChrome(req *Request) (*Response, error) {
 
 	return &response, nil
 }
-
-func newProxy() *httputil.ReverseProxy {
-    return &httputil.ReverseProxy{
-        Director: func(r *http.Request) {
-            if dump, err := httputil.DumpRequest(r, true); err == nil {
-                log.Printf("%s", dump)
-            }
-            // hardcode username/password "u:p" (base64 encoded: dTpw ) to make it simple
-            if auth := r.Header.Get("Proxy-Authorization"); auth != "Basic dTpw" {
-                r.Header.Set("X-Failed", "407")
-            }
-        },
-        Transport: &transport{http.DefaultTransport},
-        ErrorHandler: func(w http.ResponseWriter, r *http.Request, err error) {
-            if err.Error() == "407" {
-                log.Println("proxy: not authorized")
-                w.Header().Add("Proxy-Authenticate", `Basic realm="Proxy Authorization"`)
-                w.WriteHeader(407)
-            } else {
-                w.WriteHeader(http.StatusBadGateway)
-            }
-        },
-    }
-}
-
-type transport struct {
-    http.RoundTripper
-}
-
-func (t *transport) RoundTrip(r *http.Request) (*http.Response, error) {
-    if h := r.Header.Get("X-Failed"); h != "" {
-        return nil, fmt.Errorf(h)
-    }
-    return t.RoundTripper.RoundTrip(r)
-}
-
 
 // SetCookies handles the receipt of the cookies in a reply for the given URL
 func (c *Client) SetCookies(URL string, cookies []*http.Cookie) error {

@@ -45,18 +45,6 @@ func NewGeziyor(opt *Options) *Geziyor {
 	if opt.UserAgent == "" {
 		opt.UserAgent = client.DefaultUserAgent
 	}
-    if opt.ProxyAdress == "" {
-        opt.ProxyAdress = client.DefaultProxyAdress
-    }
-    if opt.ProxyLogin == "" {
-        opt.ProxyLogin = client.DefaultProxyLogin
-    }
-    if opt.ProxyPort == "" {
-        opt.ProxyPort = client.DefaultProxyPort
-    }
-    if opt.ProxyPassword == "" {
-        opt.ProxyPassword = client.DefaultProxyPassword
-    }
 	if opt.MaxBodySize == 0 {
 		opt.MaxBodySize = client.DefaultMaxBody
 	}
@@ -88,13 +76,9 @@ func NewGeziyor(opt *Options) *Geziyor {
 		MaxBodySize:           opt.MaxBodySize,
 		CharsetDetectDisabled: opt.CharsetDetectDisabled,
 		RetryTimes:            opt.RetryTimes,
+		RandomSleep:           opt.RandomSleep,
 		RetryHTTPCodes:        opt.RetryHTTPCodes,
 		RemoteAllocatorURL:    opt.BrowserEndpoint,
-        ProxyPort:             opt.ProxyPort,
-        ProxyAdress:           opt.ProxyAdress,
-        ProxyLogin:            opt.ProxyLogin,
-        ProxyPassword:         opt.ProxyPassword,
-        RandomSleep:           opt.RandomSleep,
 		AllocatorOptions:      chromedp.DefaultExecAllocatorOptions[:],
 	})
 	if opt.Cache != nil {

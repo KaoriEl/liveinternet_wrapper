@@ -8,6 +8,7 @@ use App\Models\Proxy;
 use App\Models\Sites;
 use Bschmitt\Amqp\Amqp;
 use Exception;
+use GuzzleHttp\Client;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -98,7 +99,7 @@ class SiteController extends Controller
      * @throws Exception
      */
     public function SmartWrapper($count,$siteUrl,$delimiter) {
-        Artisan::queue("proxy:check");
+
         $connection = new AMQPStreamConnection(env("RABBITMQ_HOST"), env("RABBITMQ_PORT"), env("RABBITMQ_LOGIN"), env("RABBITMQ_PASSWORD"));
         $channel = $connection->channel();
 
@@ -106,8 +107,10 @@ class SiteController extends Controller
 
             if ($count !== null){
                 $proxyList = DB::table("proxies")->inRandomOrder()->where("status", "ACTIVE")->take($count)->get();
+//               dd($proxyList);
+//                $proxyList = $this->CheckProxy($proxyList);
             }else{
-                dd("Нет кол-ва для накрутки");
+//                dd("Нет кол-ва для накрутки");
             }
             $msg = [
                 'site_url' => $siteUrl,
@@ -122,4 +125,51 @@ class SiteController extends Controller
         $connection->close();
         return redirect('/');
     }
+
+//    public function CheckProxy($proxies){
+//        $arr = array();
+//        foreach ($proxies as $proxy) {
+//            array_push($arr, $proxy->proxy_address . ":" . $proxy->proxy_port);
+//        }
+//
+//
+//        $count_chunk = 1;
+//        $size = ceil(count($arr) / $count_chunk);
+//        $arr = array_chunk($arr, $size);
+//        $proxyList = array();
+//
+//        for ($i = 0; $i < $count_chunk; $i++) {
+//            $string = implode(PHP_EOL, $arr[$i]);
+//            try {
+//                $http = new Client;
+//                $response = $http->post('https://proxy-checker.net/api/proxy-checker/', [
+//                    'form_params' => [
+//                        'proxy_list' => $string,
+//                    ],
+//                ]);
+//
+//                $proxies = json_decode($response->getBody()->getContents(), true);
+//
+//                sleep(1);
+//                foreach ($proxies as $proxy) {
+//                    if ($proxy["valid"] == "true") {
+//                        array_push($proxyList, $proxy->proxy_address . ":" . $proxy->proxy_port);
+//                        $proxyList[]["proxy_address"][]= $proxy["ip"] "proxy_port"=> $proxy["port"]];
+//                        $proxyList[]["proxy_address"][] =
+//                        dd($proxyList);
+//                        DB::table("proxies")->where("proxy_address", $proxy["ip"])->update(['status' => "ACTIVE",]);
+//                        echo '[Chunk_number = ' . $i . '] ONLINE: ' . $proxy["ip"] . ":" . $proxy["port"] . PHP_EOL;
+//                    } else {
+//
+//                        DB::table("proxies")->where("proxy_address", $proxy["ip"])->update(['status' => "INACTIVE",]);
+//                        dump("zalupa");
+//                        echo '[Chunk_number = ' . $i . '] OFFLINE: ' . $proxy["ip"] . ":" . $proxy["port"] . PHP_EOL;
+//                    }
+//                }
+//            }catch (\Exception $exception){
+//                return "ok";
+//            }
+//
+//        }
+//    }
 }
